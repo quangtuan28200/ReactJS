@@ -1,28 +1,34 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { Component } from 'react'
 
-function Header() {
-    return (
-        <>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div className="container">
-                    <a className="navbar-brand">Navbar</a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon" />
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page">Home</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link">Link</a>
-                            </li>
-                        </ul>
+export default class Header extends Component {
+    render() {
+        return (
+            <div>
+                <header id="header" className="fixed-top d-flex align-items-center header-transparent">
+                    <div className="container d-flex align-items-center">
+                        <div className="logo mr-auto">
+                            <h1 className="text-light"><a href="index.html"><span>Delicious</span></a></h1>
+                            {/* Uncomment below if you prefer to use an image logo */}
+                            {/* <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>*/}
+                        </div>
+                        <nav className="nav-menu d-none d-lg-block">
+                            <ul>
+                                <li className="active"><a href="index.html">Home</a></li>
+                                <li><a href="#about">About</a></li>
+                                <li><a href="#menu">Menu</a></li>
+                                <li><a href="#specials">Specials</a></li>
+                                <li><a href="#events">Events</a></li>
+                                <li><a href="#chefs">Chefs</a></li>
+                                <li><a href="#gallery">Gallery</a></li>
+                                <li><a href="#contact">Contact</a></li>
+                                <li className="book-a-table text-center"><a href="#book-a-table">Book a table</a></li>
+                            </ul>
+                        </nav>{/* .nav-menu */}
                     </div>
-                </div>
-            </nav>
-        </>
-    );
-}
+                </header>
 
-export default Header;
+
+            </div>
+        )
+    }
+}
