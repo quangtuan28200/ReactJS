@@ -1,40 +1,71 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 
 export default class World extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isSubmit: false,
+            fimg: '',
+            fname: '',
+            faddress: '',
+            fgender: 'male',
+        }
+    }
+
+    onChange = (event) => {
+        let name = event.target.name;
+        let value = event.target.value;
+        this.setState({
+            [name]: value
+        })
+    }
+
+    onImgChange = (event) => {
+        let name = event.target.files[0].name
+        this.setState({
+            fimg : name
+        })
+    }
+
+    submitForm = (event) => {
+        event.preventDefault();
+        this.setState({
+            isSubmit: true
+        })
+    }
+
     render() {
+        if (this.state.isSubmit) {
+            console.log(this.state.fimg, this.state.fname, this.state.faddress, this.state.fgender)
+            return <Redirect to="/home" />
+        }
         return (
             <div className="row">
                 <h1>World</h1>
-                <div className="col-4">
-                    <div className="card">
-                        <img src="https://via.placeholder.com/700x600" className="card-img-top" alt="img" />
-                        <div className="card-body">
-                            <h5 className="card-title">product 1</h5>
-                            <p className="card-text">1.000.000 d</p>
-                            
-                        </div>
+                <form>
+                    <div className="mb-3">
+                        <label htmlFor="imgInput" className="form-label">Image</label>
+                        <input onChange={(event) => this.onImgChange(event)} name="fimg" type="file" className="form-control" id="imgInput" />
                     </div>
-                </div>
-                <div className="col-4">
-                    <div className="card">
-                        <img src="https://via.placeholder.com/700x600" className="card-img-top" alt="img" />
-                        <div className="card-body">
-                            <h5 className="card-title">product 2</h5>
-                            <p className="card-text">2.000.000 d</p>
-                            
-                        </div>
+                    <div className="mb-3">
+                        <label htmlFor="exampleInputEmail1" className="form-label">Name</label>
+                        <input onChange={(event) => this.onChange(event)} name="fname" type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                     </div>
-                </div>
-                <div className="col-4">
-                    <div className="card">
-                        <img src="https://via.placeholder.com/700x600" className="card-img-top" alt="img" />
-                        <div className="card-body">
-                            <h5 className="card-title">product 3</h5>
-                            <p className="card-text">3.000.000 d</p>
-                           
-                        </div>
+                    <div className="mb-3">
+                        <label htmlFor="exampleInputPassword1" className="form-label">Address</label>
+                        <input onChange={(event) => this.onChange(event)} name="faddress" type="text" className="form-control" id="exampleInputPassword1" />
                     </div>
-                </div>
+                    <div className="mb-3">
+                        <label htmlFor="selectGender" className="form-label">Gender</label>
+                        <select onChange={(event) => this.onChange(event)} name="fgender" className="form-select" aria-label="selectGender">
+                            <option defaultValue value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <button type="submit" className="btn btn-primary" onClick={(event) => this.submitForm(event)}>Submit</button>
+                </form>
+
             </div>
         )
     }

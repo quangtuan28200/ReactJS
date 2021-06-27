@@ -1,7 +1,8 @@
+/* eslint-disable no-lone-blocks */
+/* eslint-disable eqeqeq */
 /* eslint-disable no-undef */
 import React, { Component } from 'react'
 import NewsItem from './Items/newsItem'
-
 export default class News extends Component {
     constructor(props) {
         super(props);
@@ -10,11 +11,9 @@ export default class News extends Component {
             products: []
         }
     }
-
-
-    componentWillMount() {
+    componentDidMount() {
         const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
-
+    
         fetch(apiUrl)
             .then(res => res.json())
             .then(
@@ -28,20 +27,28 @@ export default class News extends Component {
                 }
             )
     }
-
+    newsitem = (x) => {
+        if(x != ''){
+            return(
+                x.map((newsItem, index) => (
+                    <NewsItem
+                        key={index}
+                        newsId={newsItem.id}
+                        title={newsItem.title}
+                        body={newsItem.body}
+                    />             
+                ))
+            )
+        }
+    }
+    
     render() {
+        // console.log(this.state.products)
+        
         return (
             <div className="row">
                 <h1>News</h1>
-                {
-                    this.state.products.map((newsItem, index) => (
-                        <NewsItem
-                            key={index}
-                            title={newsItem.title}
-                            price={newsItem.body}
-                        />
-                    ))
-                }
+                {this.newsitem(this.state.products)}
             </div>
         )
     }
