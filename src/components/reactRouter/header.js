@@ -23,11 +23,10 @@ export default class Header extends Component {
                                 <li className="nav-item">
                                     <NavLink activeClassName="selected" className="nav-link" to="/world">World</NavLink>
                                 </li>
+                                <li className="nav-item">
+                                    <NavLink activeClassName="selected" className="nav-link" to="/admin">Admin</NavLink>
+                                </li>
                             </ul>
-                            <form className="d-flex">
-                                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                                <button className="btn btn-outline-success" type="submit">Search</button>
-                            </form>
                         </div>
                     </div>
                 </nav>

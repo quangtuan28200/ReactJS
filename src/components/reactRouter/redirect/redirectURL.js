@@ -5,6 +5,7 @@ import News from "../contents/news";
 import Football from "../contents/football";
 import World from "../contents/world";
 import Newsdetail from "../contents/newsdetail";
+import Admin from '../contents/admin';
 
 export default class RedirectURL extends Component {
     render() {
@@ -15,6 +16,7 @@ export default class RedirectURL extends Component {
                 <Route exact path="/news" component={News} />
                 <Route path="/football" component={Football} />
                 <Route path="/world" component={World} />
+                <Route path="/admin" component={Admin} />
 
                 <Route path="/news/:slug.:id.html" component={Newsdetail} />
             </div>

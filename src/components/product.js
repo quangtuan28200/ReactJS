@@ -3,7 +3,6 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
-
 export default class Product extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +17,8 @@ export default class Product extends Component {
         })
 
         if(x === 0){
-            console.log(this.name.value);
+            console.log(this.refname);
+            console.log(this.refname.value);
         }
     }
 
@@ -33,7 +33,7 @@ export default class Product extends Component {
         <div>
             <div className="mb-3">
                 <label htmlFor="exampleInputEmail1" className="form-label">Name product:</label>
-                <input ref={(input) => {this.name = input}} defaultValue={this.props.name} type="text" className="form-control" id="exampleInputEmail1" />
+                <input ref={(input) => {this.refname = input}} defaultValue={this.props.name} type="text" className="form-control" id="exampleInputEmail1" />
             </div>
             <button className="btn btn-primary" onClick={() => {this.status(0)}}>Save</button>
         </div>
