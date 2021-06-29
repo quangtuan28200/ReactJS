@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 export default class FormBtn extends Component {
     formBtnAdd = () => (
-        <button className="btn btn-outline-primary shadow-none" onClick={() => this.props.onChangeStatus()}>Add new user</button>
+        <button className="btn btn-outline-success shadow-none" onClick={() => this.props.onChangeStatus()}>Add new user</button>
     )
 
     formBtnClose = () => (

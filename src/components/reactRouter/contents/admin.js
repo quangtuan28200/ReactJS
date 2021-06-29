@@ -1,81 +1,92 @@
+/* eslint-disable no-lone-blocks */
+/* eslint-disable no-unused-expressions */
 import React, { Component } from 'react'
 import FormBtn from './admins/formBtn';
 import FormAdd from './admins/formAdd';
+import Search from './admins/search';
+import DataTable from './admins/dataTable';
 
+import dataUser from '../../../data/dataUser.json';
 export default class Admin extends Component {
     constructor(props) {
         super(props);
         this.state = {
             status : false,
+            edit : false,
+            data: dataUser,
+            searchValue: '',
+            editValue: {},
         }
     }
 
     onChangeStatus = () => {
         this.setState({
-            status: !this.state.status
+            status: !this.state.status,
+            edit: false,
+            editValue: {}
         })
     }
 
-    renderFormAdd = () => (
-        <div className="card mt-1">
-            <div className="card-header">
-                Add user 
-            </div>
-            <div className="card-body">
-                <form>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label">Name</label>
-                        <input name="fname" type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label">Phone</label>
-                        <input name="faddress" type="text" className="form-control" id="exampleInputPassword1" />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="selectGender" className="form-label">Author</label>
-                        <select name="fgender" className="form-select" aria-label="selectGender">
-                            <option defaultValue value="1">Admin</option>
-                            <option value="2">Modrator</option>
-                            <option value="3">Normal</option>
-                        </select>
-                    </div>
-                    <div className="d-grid">
-                        <button type="submit" className="btn btn-success shadow-none" >Add</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    )
-
-    renderBtnFormAdd = () => (
-        <button className="btn btn-outline-primary shadow-none" onClick={() => this.onChangeStatus(true)}>Add new user</button>
-    )
-    renderBtnFormClose = () => (
-        <button className="btn btn-outline-danger shadow-none" onClick={() => this.onChangeStatus(false)}>Close</button>       
-    )
-
-    checkFormBtn = () => {
-        let formBtn = this.renderBtnFormAdd();
-        if(this.state.status){
-            formBtn =  this.renderBtnFormClose();
-        }
-        return formBtn
+    getSearchValue = (value) => {
+        this.setState({
+            searchValue: value
+        })
     }
-    checkFormAdd = () => {
-        if(this.state.status){
-            return this.renderFormAdd();
-        }
+
+    getFormValue = (value, e) => {
+        e.preventDefault()
+        console.log(value)
+        var a = this.state.data;
+        a.push(value)
+        
+        this.setState({
+            data: a
+        })
     }
+
+    getEditvalue = (value) => {
+        this.setState({
+            status: true,
+            edit: true,
+            editValue: value
+        })
+    }
+
+    saveHandle = (e) => {
+        e.preventDefault()
+        this.setState({
+            status: false,
+            edit: false,
+        })
+    }
+
+    renderDataTable = (data) => (    
+        data.map((dt, index) => (    
+            <DataTable 
+                getEditvalue = {(value) => this.getEditvalue(value)}
+                key = {index}
+                data = {dt}
+                no = {index}
+            />
+        ))           
+    )
     
-    render() {                     
+
+    render() {    
+        var searchResults = [];
+        this.state.data.forEach(element => {
+            if(element.name.indexOf(this.state.searchValue) !== -1){
+                searchResults.push(element)
+            }
+        });
+        
         return (
             <div className="mt-4">
                 <div className="row">
                     <div className="col-6">
-                        <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                        <Search 
+                            getSearchValue = {(value) => this.getSearchValue(value)}
+                        />
                     </div>
                 </div>
                 <div className="row mt-3">
@@ -91,36 +102,7 @@ export default class Admin extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                    <td>
-                                        <button type="button" className="btn btn-primary shadow-none">Edit</button>
-                                        <button type="button" className="btn btn-danger ms-1 shadow-none">Delete</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                    <td>
-                                        <button type="button" className="btn btn-primary shadow-none">Edit</button>
-                                        <button type="button" className="btn btn-danger ms-1 shadow-none">Delete</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
-                                    <td>
-                                        <button type="button" className="btn btn-primary shadow-none">Edit</button>
-                                        <button type="button" className="btn btn-danger ms-1 shadow-none">Delete</button>
-                                    </td>
-                                </tr>
+                                {this.renderDataTable(searchResults)}
                             </tbody>
                         </table>
                     </div>
@@ -130,10 +112,15 @@ export default class Admin extends Component {
                             <FormBtn 
                                 onChangeStatus = {() => this.onChangeStatus()}
                                 status = {this.state.status}
+                                edit = {this.state.edit}
                             />
                         </div>
                         <FormAdd 
+                            saveHandle = {(e) => this.saveHandle(e)}
+                            getFormValue = {(value,e) => this.getFormValue(value,e)}
                             status = {this.state.status}
+                            edit = {this.state.edit}
+                            editValue = {this.state.editValue}
                         />
                     </div>
                 </div>

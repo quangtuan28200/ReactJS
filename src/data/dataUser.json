@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "Bui Quang T1",
+        "phone": "0387126034",
+        "permission": 1
+    },
+    {
+        "id": 2,
+        "name": "Bui Quang T2",
+        "phone": "0387126034",
+        "permission": 2
+    },
+    {
+        "id": 3,
+        "name": "Bui Quang T3",
+        "phone": "0387126034",
+        "permission": 3
+    },
+    {
+        "id": 4,
+        "name": "Bui Quang T4",
+        "phone": "0387126034",
+        "permission": 1
+    },
+    {
+        "id": 5,
+        "name": "Bui Quang T5",
+        "phone": "0387126034",
+        "permission": 2
+    },
+    {
+        "id": 6,
+        "name": "Bui Quang T6",
+        "phone": "0387126034",
+        "permission": 3
+    }
+]
