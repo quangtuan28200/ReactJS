@@ -35,7 +35,6 @@ export default class Admin extends Component {
 
     getFormValue = (value, e) => {
         e.preventDefault()
-        console.log(value)
         var a = this.state.data;
         a.push(value)
         
@@ -52,8 +51,22 @@ export default class Admin extends Component {
         })
     }
 
-    saveHandle = (e) => {
+    getDeletevalue = (id) => {
+        var tempdata = this.state.data;
+        this.setState({
+            data: tempdata.filter(element => element.id !== id)
+        })
+    }
+
+    saveHandle = (value, e) => {
         e.preventDefault()
+        this.state.data.forEach(element => {
+            if(element.id === value.id){
+                element.name = value.name;
+                element.phone = value.phone;
+                element.permission = value.permission;
+            }
+        });
         this.setState({
             status: false,
             edit: false,
@@ -64,6 +77,7 @@ export default class Admin extends Component {
         data.map((dt, index) => (    
             <DataTable 
                 getEditvalue = {(value) => this.getEditvalue(value)}
+                getDeletevalue = {(value) => this.getDeletevalue(value)}
                 key = {index}
                 data = {dt}
                 no = {index}
@@ -72,7 +86,7 @@ export default class Admin extends Component {
     )
     
 
-    render() {    
+    render() {  
         var searchResults = [];
         this.state.data.forEach(element => {
             if(element.name.indexOf(this.state.searchValue) !== -1){
@@ -116,7 +130,7 @@ export default class Admin extends Component {
                             />
                         </div>
                         <FormAdd 
-                            saveHandle = {(e) => this.saveHandle(e)}
+                            saveHandle = {(value, e) => this.saveHandle(value, e)}
                             getFormValue = {(value,e) => this.getFormValue(value,e)}
                             status = {this.state.status}
                             edit = {this.state.edit}
