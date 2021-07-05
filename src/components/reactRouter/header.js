@@ -26,6 +26,9 @@ export default class Header extends Component {
                                 <li className="nav-item">
                                     <NavLink activeClassName="selected" className="nav-link" to="/admin">Admin</NavLink>
                                 </li>
+                                <li className="nav-item">
+                                    <NavLink activeClassName="selected" className="nav-link" to="/redux">Redux</NavLink>
+                                </li>
                             </ul>
                         </div>
                     </div>
