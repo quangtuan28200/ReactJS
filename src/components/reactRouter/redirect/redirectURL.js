@@ -6,7 +6,8 @@ import Football from "../contents/football";
 import World from "../contents/world";
 import Newsdetail from "../contents/newsdetail";
 import Admin from '../contents/admin';
-import Main from '../redux/main';
+import Firebase from '../firebase/firebase';
+import Redux from '../redux/redux';
 
 export default class RedirectURL extends Component {
     render() {
@@ -18,7 +19,8 @@ export default class RedirectURL extends Component {
                 <Route path="/football" component={Football} />
                 <Route path="/world" component={World} />
                 <Route path="/admin" component={Admin} />
-                <Route path="/redux" component={Main} />
+                <Route path="/redux" component={Redux} />
+                <Route path="/firebase" component={Firebase} />
 
                 <Route path="/news/:slug.:id.html" component={Newsdetail} />
             </div>

@@ -29,6 +29,9 @@ export default class Header extends Component {
                                 <li className="nav-item">
                                     <NavLink activeClassName="selected" className="nav-link" to="/redux">Redux</NavLink>
                                 </li>
+                                <li className="nav-item">
+                                    <NavLink activeClassName="selected" className="nav-link" to="/firebase">Firebase</NavLink>
+                                </li>
                             </ul>
                         </div>
                     </div>

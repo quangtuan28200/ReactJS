@@ -1,42 +1,52 @@
-const redux = require('redux');
+/* eslint-disable no-useless-constructor */
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-const vitualState = {
-    arr: ["a", "b"],
-    status: true,
-}
+class Redux extends Component {
+    constructor(props) {
+        super(props);
+        
+    }
+    
+    getStateFromStore = () => {
+        console.log(this.props.status)
+        console.log(this.props.data)
+    }
 
-const reducer = (state = vitualState, action) => {
-    switch (action.type) {
-        case "changeStatus":
-            return { ...state, status: !state.status }
-        case "add":
-            return { ...state, arr: [...state.arr, action.element] }
-        case "delete":
-            return { ...state, arr: state.arr.filter((value, key) => key !== action.index) }
-        default:
-            return state
+    //Cach 1
+    getFuncFromStore = () => {
+        console.log(this.props)
+        this.props.dispatch({
+            type: "changeStatus"
+        })
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={() => this.getStateFromStore()}>getStateFromStore</button>
+                <button onClick={() => this.getFuncFromStore()}>getFuncFromStore</button>
+                <button onClick={() => this.props.changeStatus()}>getFuncFromStore</button>
+            </div>
+        )
     }
 }
 
-const storage = redux.createStore(reducer)
+const mapStateToProps = (state, ownProps) => {
+    // console.log(state)
+    return {
+        data: state.arr,
+        status: state.status
+    }
+}
 
-// //theo doi khi state thay doi
-// storage.subscribe(() => {
-//     console.log(storage.getState())
-// })
-// //change
-// storage.dispatch({
-//     type: "changeStatus"
-// })
-// //add
-// storage.dispatch({
-//     type: "add",
-//     element: "c",
-// })
-// //delete
-// storage.dispatch({
-//     type: "delete",
-//     index: 1,
-// })
+//Cach 2- neu dung cach nay thi cach 1 k dung dc nua
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        changeStatus: () => {
+            dispatch({type: "changeStatus"})
+        }
+    }
+}
 
-export default storage;
+export default connect(mapStateToProps, mapDispatchToProps)(Redux)
