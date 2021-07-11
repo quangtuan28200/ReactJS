@@ -14,19 +14,5 @@ const storage = redux.createStore(reducers)
 storage.subscribe(() => {
     console.log(storage.getState())
 })
-// //change
-// storage.dispatch({
-//     type: "changeStatus"
-// })
-// //add
-// storage.dispatch({
-//     type: "add",
-//     element: "c",
-// })
-// //delete
-// storage.dispatch({
-//     type: "delete",
-//     index: 1,
-// })
 
 export default storage;

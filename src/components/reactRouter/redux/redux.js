@@ -9,8 +9,8 @@ class Redux extends Component {
     }
     
     getStateFromStore = () => {
-        console.log(this.props.status)
         console.log(this.props.data)
+        console.log(this.props.status)
     }
 
     //Cach 1
@@ -27,13 +27,14 @@ class Redux extends Component {
                 <button onClick={() => this.getStateFromStore()}>getStateFromStore</button>
                 <button onClick={() => this.getFuncFromStore()}>getFuncFromStore</button>
                 <button onClick={() => this.props.changeStatus()}>getFuncFromStore</button>
+                <button onClick={() => this.props.add('c')}>addArr</button>
+                <button onClick={() => this.props.delete(1)}>deleteArr</button>
             </div>
         )
     }
 }
 
 const mapStateToProps = (state, ownProps) => {
-    // console.log(state)
     return {
         data: state.arr,
         status: state.status
@@ -45,7 +46,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         changeStatus: () => {
             dispatch({type: "changeStatus"})
-        }
+        },
+        add: (element) => {
+            dispatch({
+                type: "add",
+                element
+            })
+        },
+        delete: (index) => {
+            dispatch({
+                type: "delete",
+                index
+            })
+        },
     }
 }
 
